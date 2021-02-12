@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_pymongo import PyMongo
-import scraper
+import scraping
 
 # import mysql.connector 
 # import scrapingutils
