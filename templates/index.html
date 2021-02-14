@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mission to Mars</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mission_to_mars_stylesheet.css') }}">
+</head>
+
+
+<body class="text-white" style="background-color: rgb(20, 20, 20); font-family:brandon-grotesque,sans-serif;">
+    <div class='container'>
+        <!-- Add Jumbotron to Header-->
+        <div class='Jumbotron text-center' style="background-image: url(https://s3.amazonaws.com/psiu/wallpapers/PIA17944/PIA17944_desktop.jpg); height: 350px; background-position: center; background-size: cover;"> 
+            <h1 style="color: orangered; padding-top: 25px; font-weight: bold;">Mission to Mars</h1>
+            <!-- Add a button to activate scraping script -->
+            <p><a class="btn btn-primary btn-lg" style="background-color: rgb(18, 144, 165); opacity: 80%; border-color: white" href="/scrape" role="button">Scrape New Data</a></p>
+        </div>
+        <!--Mars News-->
+        <div class='row' id='mars-news' style="padding-bottom: 20px">
+            <div class='col-md-12'>
+                <div class='media'>
+                    <div class='media-body'>
+                        <h2 style="padding-top: 20px">Latest Mars News</h2>
+                        <h4 class="media-heading" style="padding-top: 10px">{{mars.news_title}}</h4>
+                        <p>{{mars.news_paragraph}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: gray; height: 1px">
+        <!--Just a divider div-->
+        </div>
+        <!--Section for Featured Image and Facts Table-->
+        <div class='row' id='mars-featured-image' style="padding-top: 30px; padding-bottom: 50px">
+            <!-- Second Level-->
+            <div class='col-md-8'>
+                <h2 style="padding: top 20px;">Featured Mars Image</h2>
+                <img src="{{mars.featured_image | default('https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/image/featured/mars1.jpg') }}" class="img-response" alt="Responsive image">
+            </div>
+            <!-- Also second level-->
+            <div class='col-md-4'>
+                <div class='row' id='mars-facts' style="background-color: rgb(28, 28, 28) !important; color: white !important">
+                    <h4>Mars Facts</h4>
+                    {{mars.facts | safe }}
+                </div>
+            </div>
+        </div>
+        <div style="background-color: gray; height: 1px"><!--Just a divider Div--></div>
+        <!-- Section for Mars Hemispheres -->
+        <div id='mars-hemispheres' style="padding-top: 25px; padding-bottom: 15px">
+            <div class="page-header">
+                <h2 class="text-center">Mars Hemispheres</h2>
+            </div>
+        </div>
+        <div style="padding-top: 25px; border: 1px solid gray; height: 450px">
+            {% for hemisphere in mars.hemispheres %}
+            <div style="width:25%; float: left;">
+                <div>
+                    <img src="{{hemisphere.img_url | default('static/images/error.png', true)}}" alt="..." style="width: 90%; border: 1px solid gray">
+                </div>
+                <div class = "caption" style="width:90%; padding-top: 25px; padding-left: 5%; padding-right: 5%">
+                    <h4>{{hemisphere.title}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+<footer style="height:50px">
+
+</footer>
+</html>
